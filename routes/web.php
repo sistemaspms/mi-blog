@@ -14,3 +14,5 @@ Route::post('/categoria/store', [CategoryController::class, 'store'])->name('cat
 
 // Ruta para ver el listado de categorías
 Route::get('/categoria/index', [CategoryController::class, 'index'])->name('categoria.index');
+
+Route::get('/categoria/formulario', [CategoryController::class, 'form'])->name('categoria.formulario');
