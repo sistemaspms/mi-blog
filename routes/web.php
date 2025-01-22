@@ -1,18 +1,20 @@
 <?php
+
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\EntradaController;
 use Illuminate\Support\Facades\Route;
+
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-// Ruta para mostrar el formulario de creación de categorías
+// Rutas para Categorías
 Route::get('/categoria/form', [CategoryController::class, 'form'])->name('categoria.form');
-
-// Ruta para almacenar la categoría
 Route::post('/categoria/store', [CategoryController::class, 'store'])->name('categoria.store');
-
-// Ruta para ver el listado de categorías
 Route::get('/categoria/index', [CategoryController::class, 'index'])->name('categoria.index');
 
-Route::get('/categoria/formulario', [CategoryController::class, 'form'])->name('categoria.formulario');
+// Rutas para Entradas
+Route::get('/entrada/form', [EntradaController::class, 'form'])->name('entrada.form');
+Route::post('/entrada/store', [EntradaController::class, 'store'])->name('entrada.store');
+Route::get('/entrada/index', [EntradaController::class, 'index'])->name('entrada.index');

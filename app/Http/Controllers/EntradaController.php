@@ -1,23 +1,23 @@
 <?php
 namespace App\Http\Controllers;
 
-use App\Models\Category;
+use App\Models\Entrada;
 use Illuminate\Http\Request;
 
-class CategoryController extends Controller
+class EntradaController extends Controller
 {
     public function index()
     {
 
-        $categorias = Category::all();
+        $entrada = Entrada::all();
+         dd($entrada);
 
-
-        return view('categorias.index', compact('categorias'));
+        return view('entrada.index', compact('entrada'));
     }
 
     public function form()
     {
-        return view('categorias.form');
+        return view('entrada.form');
     }
 
     public function store(Request $request)
@@ -29,10 +29,10 @@ class CategoryController extends Controller
 
         try {
             // Inserción en la base de datos
-            Category::create($validated);
+            Entrada::create($validated);
 
             // Redireccionar con mensaje de éxito
-            return redirect()->route('categoria.index')->with('success', 'Categoría creada exitosamente.');
+            return redirect()->route('entrada.index')->with('success', 'Entrada creada exitosamente.');
         } catch (\Exception $e) {
             // Manejo de errores en caso de que ocurra un problema con la base de datos
             return redirect()->back()->withErrors('Error al crear la categoría. Por favor, inténtalo de nuevo.');
