@@ -17,4 +17,4 @@ Route::get('/categoria/index', [CategoryController::class, 'index'])->name('cate
 // Rutas para Entradas
 Route::get('/entrada/form', [EntradaController::class, 'form'])->name('entrada.form');
 Route::post('/entrada/store', [EntradaController::class, 'store'])->name('entrada.store');
-Route::get('/entrada/index', [EntradaController::class, 'index'])->name('entrada.index');
+Route::get('/entrada/index', [EntradaController::class, 'list'])->name('entrada.index');

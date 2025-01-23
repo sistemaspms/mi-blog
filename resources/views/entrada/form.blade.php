@@ -40,29 +40,24 @@
             color: #333;
         }
 
-        /* Input Fields */
-        input[type="text"],
-        textarea {
-            width: 100%;
-            padding: 12px;
-            margin-bottom: 20px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            box-sizing: border-box;
+        input, textarea, select {
+            width: 100%; /
+            padding: 10px;
+            margin-bottom: 15px; /* Añade espacio entre los campos */
+            border: 1px solid #ccc;
+            border-radius: 4px;
             font-size: 14px;
         }
 
-        /* Focus Styles */
-        input[type="text"]:focus,
-        textarea:focus {
+        input:focus, textarea:focus, select:focus {
+            border-color: #024CAA; /* Cambia el color del borde  */
             outline: none;
-            border-color: #024CAA;
-            box-shadow: 0 0 5px rgba(2, 76, 170, 0.2);
+            box-shadow: 0 0 4px rgba(0, 174, 255, 0.5);
         }
 
         /* Submit Button */
         button {
-            width: 100%;
+            width: 50%; /* tamaño del botón guardar */
             background-color: #024CAA;
             color: #ffffff;
             border: none;
@@ -74,7 +69,7 @@
         }
 
         button:hover {
-            background-color: #023b8e;
+            background-color: #008ecc;
         }
 
         /* Error Messages */
@@ -105,8 +100,8 @@
         @csrf <!-- Token de seguridad obligatorio -->
 
         <!-- Campo Nombre -->
-        <label for="nombre">Titulo</label>
-        <input type="text" id="nombre" name="nombre" placeholder="Escribe el titulo" value="{{ old('nombre') }}" required>
+        <label for="titulo">Titulo</label>
+        <input type="text" id="titulo" name="titulo" placeholder="Escribe el titulo" value="{{ old('titulo') }}" required>
         @error('titulo')
         <span class="error">{{ $message }}</span>
         @enderror
@@ -117,6 +112,38 @@
         @error('descripcion')
         <span class="error">{{ $message }}</span>
         @enderror
+
+        <!-- Campo contenido -->
+        <label for="contenido">Contenido:</label>
+        <textarea id="contenido" name="contenido" rows="5" placeholder="Escribe el contenido del blog" required>{{ old('contenido') }}</textarea>
+        @error('contenido')
+        <span class="error">{{ $message }}</span>
+        @enderror
+
+        <select name="categoria_id" >
+        @foreach($categorias as $categoria)
+            <option value ="{{ $categoria->id }} ">{{$categoria->nombre}} </option>
+
+        @endforeach
+        </select>
+
+
+
+
+        <!-- Campo Fecha de Publicación -->
+        <label for="fecha_publicacion">Fecha de Publicación:</label>
+        <input type="date" id="fecha_publicacion" name="fecha_publicacion" value="{{ old('fecha_publicacion') }}" required>
+        @error('fecha_publicacion')
+        <span class="error">{{ $message }}</span>
+        @enderror
+
+        <!-- Campo Estado -->
+        <label for="estado">Estado:</label>
+        <select id="estado" name="estado" required>
+            <option value="proceso" {{ old('estado') == 'proceso' ? 'selected' : '' }} selected>Proceso</option>
+            <option value="finalizado" {{ old('estado') == 'finalizado' ? 'selected' : '' }}>Finalizado</option>
+        </select>
+
 
         <!-- Botón Guardar -->
         <button type="submit">Guardar Categoría</button>
