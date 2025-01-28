@@ -28,14 +28,40 @@ class CategoryController extends Controller
         ]);
 
         try {
-            // Inserción en la base de datos
             Category::create($validated);
 
-            // Redireccionar con mensaje de éxito
             return redirect()->route('categoria.index')->with('success', 'Categoría creada exitosamente.');
         } catch (\Exception $e) {
-            // Manejo de errores en caso de que ocurra un problema con la base de datos
+
             return redirect()->back()->withErrors('Error al crear la categoría. Por favor, inténtalo de nuevo.');
         }
     }
+
+    public function editar($idCategoria){
+
+        $categoria = Category::where('id', $idCategoria)->first();
+
+
+     return view('categorias.edit' , compact('categoria'));
+    }
+
+    public function update(Request $request , $idCategoria)
+    {
+        $validated = $request->validate([
+            'nombre' => 'required|string|max:255',
+            'descripcion' => 'nullable|string|max:500'
+        ]);
+
+
+             try {
+                 $categoria = Category::where('id', $idCategoria)->first();
+                 $categoria->update($validated);
+
+                 return redirect()->route('categoria.index')->with('success', 'Categoría actualizada exitosamente.');
+             } catch (\Exception $e) {
+                 return redirect()->back()->withErrors('Error . Por favor, inténtalo de nuevo.');
+
+             }
+    }
+
 }

@@ -13,6 +13,8 @@ Route::get('/', function () {
 Route::get('/categoria/form', [CategoryController::class, 'form'])->name('categoria.form');
 Route::post('/categoria/store', [CategoryController::class, 'store'])->name('categoria.store');
 Route::get('/categoria/index', [CategoryController::class, 'index'])->name('categoria.index');
+Route::get('/categria/editar/{idCategoria}', [CategoryController::class, 'editar'])->name('categoria.editar');
+Route::patch('/categoria/update/{idCategoria}', [CategoryController::class, 'update'])->name('categoria.update');
 
 // Rutas para Entradas
 Route::get('/entrada/form', [EntradaController::class, 'form'])->name('entrada.form');
