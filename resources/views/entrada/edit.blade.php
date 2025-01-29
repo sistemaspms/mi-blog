@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -40,28 +39,33 @@
             color: #333;
         }
 
-        input, textarea, select {
-            width: 100%; /
-            padding: 10px;
-            margin-bottom: 15px; /* Añade espacio entre los campos */
-            border: 1px solid #ccc;
-            border-radius: 4px;
+        /* Input Fields */
+        input[type="text"],
+        textarea {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-sizing: border-box;
             font-size: 14px;
         }
 
-        input:focus, textarea:focus, select:focus {
-            border-color: #024CAA; /* Cambia el color del borde  */
+        /* Focus Styles */
+        input[type="text"]:focus,
+        textarea:focus {
             outline: none;
-            box-shadow: 0 0 4px rgba(0, 174, 255, 0.5);
+            border-color: #024CAA;
+            box-shadow: 0 0 5px rgba(2, 76, 170, 0.2);
         }
 
         /* Submit Button */
         button {
-            width: 50%; /* tamaño del botón guardar */
+            width: 100%;
             background-color: #024CAA;
             color: #ffffff;
             border: none;
-            padding: 12px;
+            padding: 10px;
             font-size: 16px;
             border-radius: 8px;
             cursor: pointer;
@@ -69,7 +73,7 @@
         }
 
         button:hover {
-            background-color: #008ecc;
+            background-color: #023b8e;
         }
 
         /* Error Messages */
@@ -84,7 +88,8 @@
 <body>
 
 <div class="container">
-    <h1>Formulario de Entradas</h1>
+    <h1>Editar Entrada</h1>
+
 
     @if ($errors->any())
         <div class="error">
@@ -96,52 +101,56 @@
         </div>
     @endif
 
-    <form method="POST" action="{{ route('entrada.store') }}">
+    <form method="POST" action="{{ route('entrada.update' , $entrada->id) }}">
+
         @csrf
+        @method('PATCH')
 
         <label for="titulo">Titulo</label>
-        <input type="text" id="titulo" name="titulo" placeholder="Escribe el titulo" value="{{ old('titulo') }}" required>
+        <input type="text" id="titulo" name="titulo" placeholder="Escribe el titulo" value="{{$entrada->titulo }}" required>
         @error('titulo')
         <span class="error">{{ $message }}</span>
         @enderror
 
-
         <label for="descripcion">Descripción:</label>
-        <textarea id="descripcion" name="descripcion" rows="5" placeholder="Escribe una breve descripción" required>{{ old('descripcion') }}</textarea>
+        <textarea id="descripcion" name="descripcion" rows="5" placeholder="Escribe una breve descripción" required>{{ $entrada->descripcion }}</textarea>
         @error('descripcion')
         <span class="error">{{ $message }}</span>
         @enderror
 
-
         <label for="contenido">Contenido:</label>
-        <textarea id="contenido" name="contenido" rows="5" placeholder="Escribe el contenido del blog" required>{{ old('contenido') }}</textarea>
+        <textarea id="contenido" name="contenido" rows="5" placeholder="Escribe el contenido del blog" required>{{ $entrada->contenido }}</textarea>
         @error('contenido')
         <span class="error">{{ $message }}</span>
         @enderror
 
+        <label for="contenido">Categoria:</label>
         <select name="categoria_id" >
-        @foreach($categorias as $categoria)
-            <option value ="{{ $categoria->id }} ">{{$categoria->nombre}} </option>
-
-        @endforeach
+            @foreach($categorias as $categoria)
+                <option value ="{{ $categoria->id }} ">{{$categoria->nombre}} </option>
+            @endforeach
         </select>
 
         <label for="fecha_publicacion">Fecha de Publicación:</label>
-        <input type="date" id="fecha_publicacion" name="fecha_publicacion" value="{{ old('fecha_publicacion') }}" required>
+        <input type="date" id="fecha_publicacion" name="fecha_publicacion" value="{{ $entrada->fecha_publicacion }}" required>
         @error('fecha_publicacion')
         <span class="error">{{ $message }}</span>
         @enderror
 
         <label for="estado">Estado:</label>
         <select id="estado" name="estado" required>
-            <option value="proceso" {{ old('estado') == 'proceso' ? 'selected' : '' }} selected>Proceso</option>
-            <option value="finalizado" {{ old('estado') == 'finalizado' ? 'selected' : '' }}>Finalizado</option>
+            <option value="proceso" {{ $entrada->estado == 'proceso' ? 'selected' : '' }} selected>Proceso</option>
+            <option value="finalizado" {{ $entrada->estado == 'finalizado' ? 'selected' : '' }}>Finalizado</option>
         </select>
 
 
-        <button type="submit">Guardar</button>
+        <button type="submit">Guardar </button>
     </form>
 </div>
 
 </body>
 </html>
+
+</body>
+</html>
+

@@ -46,6 +46,11 @@
             <td>{{ $entrada->titulo }}</td>
             <td>{{ $entrada->descripcion }}</td>
             <td>{{ $entrada->contenido }}</td>
+            <td>
+                <a href="{{route('entrada.editar', $entrada->id)}}" class="btn btn-primary">
+                    editar
+                </a>
+            </td
         </tr>
     @endforeach
     </tbody>

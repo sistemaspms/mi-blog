@@ -46,4 +46,37 @@ class EntradaController extends Controller
             return redirect()->back()->withErrors('Error al crear la entrada. Por favor, inténtalo de nuevo.');
         }
     }
+
+    public function editar($idEntrada){
+
+        $categorias = Category::all();
+        $entrada = Entrada::where('id', $idEntrada)->first();
+
+      return view('entrada.edit', compact('categorias', 'entrada'));
+    }
+
+    public function update(Request $request, $idEntrada)
+    {
+        $validated = $request->validate([
+            'titulo' => 'required|string|max:255',
+            'descripcion' => 'nullable|string|max:500',
+            'contenido' => 'nullable|string|max:500',
+            'categoria_id' => 'nullable|integer',
+            'fecha_publicacion' => 'nullable|date',
+            'estado' => 'nullable|string|max:500',
+        ]);
+
+        try{
+            $entrada = Entrada::where('id', $idEntrada)->first();
+             $entrada->update($validated);
+
+          return redirect()->route('entrada.index')->with('success', 'Entrada actualizada exitosamente.');
+             } catch (\Exception $e) {
+            return redirect()->back()->withErrors( 'Error');
+
+            }
+
+    }
+
+
 }

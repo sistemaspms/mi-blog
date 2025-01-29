@@ -20,3 +20,5 @@ Route::patch('/categoria/update/{idCategoria}', [CategoryController::class, 'upd
 Route::get('/entrada/form', [EntradaController::class, 'form'])->name('entrada.form');
 Route::post('/entrada/store', [EntradaController::class, 'store'])->name('entrada.store');
 Route::get('/entrada/index', [EntradaController::class, 'list'])->name('entrada.index');
+Route::get('/entrada/editar/{idEntrada}' , [EntradaController::class, 'editar'])->name('entrada.editar');
+Route::patch('/entrada/update/{id}', [EntradaController::class, 'update'])->name('entrada.update');
