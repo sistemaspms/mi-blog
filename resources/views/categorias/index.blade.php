@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Lista de Categorías</title>
@@ -36,6 +37,7 @@
          <th scope="col">Categoria</th>
          <th scope="col">Descripción</th>
          <th scope="col">Editar</th>
+         <th scope="col"> Eliminar</th>
      </tr>
      </thead>
      <tbody>
@@ -49,6 +51,13 @@
                 </a>
             </td>
 
+             <td>
+                 <form action="{{ route('categoria.destroy', $categoria->id) }}" method="POST">
+                     @csrf
+                     @method('DELETE')
+                     <button type="submit" class="btn btn-danger">Eliminar</button>
+                 </form>
+             </td>
         </tr>
     @endforeach
     </tbody>

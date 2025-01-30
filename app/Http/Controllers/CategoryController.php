@@ -2,6 +2,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Entrada;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -63,5 +64,13 @@ class CategoryController extends Controller
 
              }
     }
+   public function destroy($id)
+   {
+       $categoria = Category::findOrFail($id);
+       $categoria->delete();
+
+       return redirect()->route( 'categoria.index')->with('success', 'Categoria eliminada exitosamente.');
+
+   }
 
 }

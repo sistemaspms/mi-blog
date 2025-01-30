@@ -67,8 +67,10 @@ class EntradaController extends Controller
         ]);
 
         try{
+
             $entrada = Entrada::where('id', $idEntrada)->first();
              $entrada->update($validated);
+
 
           return redirect()->route('entrada.index')->with('success', 'Entrada actualizada exitosamente.');
              } catch (\Exception $e) {
@@ -76,6 +78,14 @@ class EntradaController extends Controller
 
             }
 
+    }
+
+    public function destroy($id)
+    {
+        $entrada = Entrada::findOrFail($id);
+        $entrada->delete();
+
+        return redirect()->route('entrada.index')->with('success', 'Entrada eliminada correctamente');
     }
 
 
